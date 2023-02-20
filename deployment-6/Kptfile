@@ -1,0 +1,22 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: kcc-namespaces
+upstream:
+  type: git
+  git:
+    repo: https://github.com/GoogleCloudPlatform/pubsec-declarative-toolkit
+    directory: /solutions/kcc-namespaces
+    ref: v0.0.3-alpha
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/GoogleCloudPlatform/pubsec-declarative-toolkit
+    directory: /solutions/kcc-namespaces
+    ref: v0.0.3-alpha
+    commit: 84a55fa2ec2e37e3ecb76f851a894c14b5003e72
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/apply-setters:v0.2.0
+      configPath: setters.yaml
